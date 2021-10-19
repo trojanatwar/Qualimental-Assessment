@@ -1,0 +1,86 @@
+openapi: "3.0.0"
+info:
+  version: "1.0.0"
+  title: Qualimental API
+  description: "Welcome!"
+paths:
+
+  /:
+    get:
+      summary: Home Root Page
+      description: "Home page on root URL"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+      responses:
+       '200':
+         description: OK
+
+  /login:
+    post:
+      summary: Login using username/password
+      description: "JWT based auth login"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: false
+              properties:
+                username:
+                  type: string
+                password:
+                  type: string
+              required:
+                - username
+                - password
+              example:
+                username: testuser
+                password: password123
+      responses:
+        200:
+          description: Logged-in 
+          content:
+            application/json:
+              schema:
+                type: object
+
+
+  /logout:
+    get:
+      summary: Logout user
+      description: "The endpoint will delete cookie"
+      security:
+        - ApiKeyAuth: []
+      responses:
+        200:
+          description: Logged-out successfully.
+          content:
+            application/json:
+              schema:
+                type: object
+
+  /wiki_view/{uid}:
+    get:
+      summary: Get Wiki Pages
+      description: "Get User Pages"
+      parameters:
+        - name: uid
+          in: path
+          required: true
+          description: Parameter description in CommonMark or HTML.
+          schema:
+            type : integer
+            format: int64
+            minimum: 1
+      responses:
+        200:
+          description: Successjhjhjh
+          content:
+            application/json:
+              schema:
+                type: object
+        

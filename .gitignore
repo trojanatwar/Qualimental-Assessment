@@ -1,0 +1,4 @@
+# Igonore .ipynb
+.ipynb_checkpoints
+qualimental.assessment.pythonbackend.egg-info/
+trypyramid/
