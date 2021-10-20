@@ -30,12 +30,13 @@ def wiki_view(request):
     # Make a view that accepts user id and returns a list of all Page titles that are owned by the user
     li = []
     uid = request.matchdict['uid']
-    data = DBSession.query(Page, User).join(User).\
-           filter(User.uid == int(uid)).\
+    
+    data = DBSession.query(Page).\
+           filter(Page.uid == int(uid)).\
            all()
-           
-    for t, u in data:
-        li.append({"Id": u.uid, "Title": t.title})
+
+    for r in data:
+        li.append({"Id": r.uid, "Title": r.title})
     
     return li
 
