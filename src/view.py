@@ -28,13 +28,16 @@ def home(request):
 @view_config(route_name='wiki_view', renderer='json')
 def wiki_view(request):
     # Make a view that accepts user id and returns a list of all Page titles that are owned by the user
+    li = []
     uid = request.matchdict['uid']
     data = DBSession.query(Page, User).join(User).\
            filter(User.uid == int(uid)).\
            all()
+           
     for t, u in data:
-        respo = {"Id": u.uid, "Title": t.title}
-    return respo
+        li.append({"Id": u.uid, "Title": t.title})
+    
+    return li
 
 @view_config(route_name='login', renderer='templates/login.pt')
 @forbidden_view_config(renderer='templates/login.pt')
