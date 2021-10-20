@@ -31,12 +31,12 @@ def wiki_view(request):
     li = []
     uid = request.matchdict['uid']
     
-    data = DBSession.query(Page).\
-           filter(Page.uid == int(uid)).\
+    data = DBSession.query(Page, User).join(User).\
+           filter(User.uid == int(uid)).\
            all()
 
-    for r in data:
-        li.append({"Id": r.uid, "Title": r.title})
+    for t, u in data:
+        li.append({"Id": u.uid, "Title": t.title})
     
     return li
 
